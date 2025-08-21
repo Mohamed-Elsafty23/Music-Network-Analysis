@@ -1,0 +1,112 @@
+================================================================================
+MUSIC COVER NETWORK MODEL SPECIFICATION
+================================================================================
+
+MODEL OVERVIEW:
+Name: Music Cover Influence Network
+Type: Directed Graph
+Theoretical Basis: Cultural Diffusion and Artistic Influence Theory
+
+NODE DEFINITION:
+----------------------------------------
+entity_type: Musical Artists/Musicians
+identifier: artist_id (unique integer)
+
+PRIMARY_ATTRIBUTES:
+  common_name: Artist primary name
+  artist_type: Type of artist (individual, group, etc.)
+  home_country: Country of origin
+  birth_year: Year of birth (for individuals)
+  career_span: Years of active musical career
+  genre_affiliation: Primary musical genres
+
+DERIVED_ATTRIBUTES:
+  influence_score: Calculated based on number of covers received
+  diversity_index: Breadth of artists they cover
+  temporal_activity: Distribution of activity over time
+  collaboration_index: Frequency of collaborative works
+  cultural_reach: Geographic spread of influence
+
+NETWORK_METRICS:
+  in_degree: Number of artists covering this artist
+  out_degree: Number of artists this artist covers
+  betweenness_centrality: Bridge role in cultural transmission
+  closeness_centrality: Distance to other artists in network
+  pagerank: Overall influence in the network
+justification: 
+            Artists as nodes represent the fundamental creative units in the music ecosystem.
+            Each artist contributes unique cultural content while also being influenced by others.
+            This aligns with Brandes et al.'s emphasis on entities that can both transmit and 
+            receive information in complex networks.
+            
+
+
+EDGE DEFINITION:
+----------------------------------------
+relationship_type: Cover Performance Relationship
+direction: Directed (Original Artist -> Covering Artist)
+interpretation: Musical influence and cultural transmission
+
+EDGE_ATTRIBUTES:
+  song_title: Name of the covered song
+  original_year: Year of original song release
+  cover_year: Year of cover performance
+  time_gap: Years between original and cover
+  genre_similarity: Measure of genre overlap
+  geographic_distance: Cultural/geographic distance between artists
+
+WEIGHT_CALCULATION:
+  method: Composite scoring based on multiple factors
+  factors: ['Temporal proximity (recent covers weighted higher)', 'Commercial success indicators', 'Critical acclaim measures', 'Cross-genre influence bonus', 'International influence bonus']
+
+EDGE_TYPES:
+  direct_cover: Simple artist A covers artist B
+  collaborative_cover: Multiple artists cover single original
+  cross_temporal: Covers spanning different eras
+  cross_cultural: Covers crossing national/cultural boundaries
+justification: 
+            Cover relationships represent direct evidence of artistic influence and cultural 
+            transmission. The directed nature captures the temporal flow of influence from 
+            original to cover. This model aligns with network science principles of 
+            information flow and cultural diffusion (Brandes et al., 2013).
+            
+
+
+THEORETICAL JUSTIFICATION:
+----------------------------------------
+
+        THEORETICAL JUSTIFICATION FOR MUSIC COVER NETWORK MODEL
+
+        1. NETWORK SCIENCE FOUNDATION (Brandes et al., 2013):
+           - Networks as formal representations of complex systems
+           - Emphasis on relational data and structural patterns
+           - Focus on emergent properties from local interactions
+
+        2. CULTURAL DIFFUSION THEORY:
+           - Musical covers represent documented cultural transmission
+           - Artists as cultural agents in information networks
+           - Temporal dynamics of influence propagation
+
+        3. EMPIRICAL ADVANTAGES:
+           - Objective, measurable relationships (cover performances)
+           - Temporal ordering provides direction
+           - Rich metadata for relationship characterization
+           - Scalable to large datasets
+
+        4. ANALYTICAL CAPABILITIES:
+           - Influence flow analysis through network paths
+           - Community detection for musical genres/scenes
+           - Temporal evolution of musical trends
+           - Cross-cultural influence patterns
+           - Artist importance ranking via centrality measures
+
+        5. RESEARCH APPLICATIONS:
+           - Cultural studies and musicology
+           - Recommendation system development
+           - Trend prediction and analysis
+           - Social network analysis in creative industries
+           - Computational creativity research
+
+        This model effectively captures the complex web of musical influence while
+        remaining computationally tractable and theoretically grounded.
+        

@@ -1,0 +1,15 @@
+pandas
+numpy
+networkx
+pyvis
+matplotlib
+seaborn
+scipy
+python-louvain
+pathlib2
+jupyter
+notebook
+numba
+scikit-learn
+tqdm
+openpyxl
