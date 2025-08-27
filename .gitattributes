@@ -1,3 +1,6 @@
+*.gml filter=lfs diff=lfs merge=lfs -text
+*.graphml filter=lfs diff=lfs merge=lfs -text
+*.pickle filter=lfs diff=lfs merge=lfs -text
 network_output/*.gml filter=lfs diff=lfs merge=lfs -text
 network_output/*.graphml filter=lfs diff=lfs merge=lfs -text
 network_output/*.pickle filter=lfs diff=lfs merge=lfs -text
