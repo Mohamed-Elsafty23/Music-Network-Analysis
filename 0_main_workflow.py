@@ -57,6 +57,18 @@ try:
     network_topology_analysis = import_module('8_network_topology_analysis')
     NetworkTopologyAnalyzer = network_topology_analysis.NetworkTopologyAnalyzer
     
+    visualize_graph_excerpt = import_module('9_visualize_graph_excerpt')
+    GraphVisualizationGenerator = visualize_graph_excerpt.GraphVisualizationGenerator
+    
+    generate_visualizations = import_module('10_generate_visualizations')
+    StatisticalVisualizationGenerator = generate_visualizations.StatisticalVisualizationGenerator
+    
+    centralities = import_module('11_centralities')
+    CentralityAnalyzer = centralities.CentralityAnalyzer
+    
+    centrality_visualizations = import_module('12_centrality_visualizations')
+    CentralityVisualizationGenerator = centrality_visualizations.CentralityVisualizationGenerator
+    
 except ImportError:
     try:
         import importlib.util
@@ -87,6 +99,18 @@ except ImportError:
         
         module8 = import_from_file("network_topology_analysis", "8_network_topology_analysis.py")
         NetworkTopologyAnalyzer = module8.NetworkTopologyAnalyzer
+        
+        module9 = import_from_file("visualize_graph_excerpt", "9_visualize_graph_excerpt.py")
+        GraphVisualizationGenerator = module9.GraphVisualizationGenerator
+        
+        module10 = import_from_file("generate_visualizations", "10_generate_visualizations.py")
+        StatisticalVisualizationGenerator = module10.StatisticalVisualizationGenerator
+        
+        module11 = import_from_file("centralities", "11_centralities.py")
+        CentralityAnalyzer = module11.CentralityAnalyzer
+        
+        module12 = import_from_file("centrality_visualizations", "12_centrality_visualizations.py")
+        CentralityVisualizationGenerator = module12.CentralityVisualizationGenerator
 
     except Exception as e:
         print(f"Error importing modules: {e}")
@@ -380,7 +404,11 @@ class MusicNetworkWorkflowOrchestrator:
             6: ("Basic Network Properties", self.run_basic_network_analysis),
             7: ("Connectivity Analysis", self.run_connectivity_analysis),
             8: ("Network Topology Characteristics", self.run_network_topology_analysis),
-            9: ("Export Visualizations", self.run_export_visualizations)
+            9: ("Graph Excerpt Visualization", self.run_graph_visualization),
+            10: ("Statistical Visualizations", self.run_statistical_visualizations),
+            11: ("Centrality Analysis", self.run_centrality_analysis),
+            12: ("Centrality Visualizations", self.run_centrality_visualizations),
+            13: ("Export Visualizations", self.run_export_visualizations)
         }
         
         self.results = {}
@@ -402,7 +430,11 @@ class MusicNetworkWorkflowOrchestrator:
             6. Basic Network Properties                                
             7. Connectivity Analysis                                   
             8. Network Topology Characteristics                                 
-            9. Export Visualizations
+            9. Graph Excerpt Visualization
+            10. Statistical Visualizations
+            11. Centrality Analysis
+            12. Centrality Visualizations
+            13. Export Visualizations
         ================================================================================
         """
         print(banner)
@@ -552,17 +584,89 @@ class MusicNetworkWorkflowOrchestrator:
             print(f"Step 8 failed: {e}")
             return False
 
-    def run_export_visualizations(self):
-        print("\nSTEP 9: EXPORT VISUALIZATIONS")
+    def run_graph_visualization(self):
+        print("\nSTEP 9: GRAPH EXCERPT VISUALIZATION")
         print("="*80)
         
         try:
-            export_visualizations("network_output", max_nodes_html=2000, max_nodes_png=1000)
-            self.results['step_9'] = {"status": "completed"}
+            expected = [Path("top_pagerank_subgraph.png")]
+            if self.skip_existing and all(p.exists() for p in expected):
+                print("Skipped: graph visualization artifacts already present")
+                return True
+            generator = GraphVisualizationGenerator()
+            results = generator.generate_graph_visualizations()
+            self.results['step_9'] = results
             print("Step 9 completed successfully")
             return True
         except Exception as e:
             print(f"Step 9 failed: {e}")
+            return False
+
+    def run_statistical_visualizations(self):
+        print("\nSTEP 10: STATISTICAL VISUALIZATIONS")
+        print("="*80)
+        
+        try:
+            expected = [Path("top_10_pagerank_bar_chart.png"), Path("top_10_metrics_heatmap.png")]
+            if self.skip_existing and all(p.exists() for p in expected):
+                print("Skipped: statistical visualization artifacts already present")
+                return True
+            generator = StatisticalVisualizationGenerator()
+            results = generator.generate_statistical_visualizations()
+            self.results['step_10'] = results
+            print("Step 10 completed successfully")
+            return True
+        except Exception as e:
+            print(f"Step 10 failed: {e}")
+            return False
+
+    def run_centrality_analysis(self):
+        print("\nSTEP 11: CENTRALITY ANALYSIS")
+        print("="*80)
+        
+        try:
+            expected = [Path("centrality_top10_with_names.json")]
+            if self.skip_existing and all(p.exists() for p in expected):
+                print("Skipped: centrality analysis artifacts already present")
+                return True
+            analyzer = CentralityAnalyzer()
+            results = analyzer.generate_centrality_analysis()
+            self.results['step_11'] = results
+            print("Step 11 completed successfully")
+            return True
+        except Exception as e:
+            print(f"Step 11 failed: {e}")
+            return False
+
+    def run_centrality_visualizations(self):
+        print("\nSTEP 12: CENTRALITY VISUALIZATIONS")
+        print("="*80)
+        
+        try:
+            expected = [Path("network_output/top_pagerank_bar.png"), Path("network_output/centrality_heatmap.png")]
+            if self.skip_existing and all(p.exists() for p in expected):
+                print("Skipped: centrality visualization artifacts already present")
+                return True
+            generator = CentralityVisualizationGenerator()
+            results = generator.generate_centrality_visualizations()
+            self.results['step_12'] = results
+            print("Step 12 completed successfully")
+            return True
+        except Exception as e:
+            print(f"Step 12 failed: {e}")
+            return False
+
+    def run_export_visualizations(self):
+        print("\nSTEP 13: EXPORT VISUALIZATIONS")
+        print("="*80)
+        
+        try:
+            export_visualizations("network_output", max_nodes_html=2000, max_nodes_png=1000)
+            self.results['step_13'] = {"status": "completed"}
+            print("Step 13 completed successfully")
+            return True
+        except Exception as e:
+            print(f"Step 13 failed: {e}")
             return False
 
     def run_all_steps(self):
@@ -671,6 +775,13 @@ class MusicNetworkWorkflowOrchestrator:
             ("connectivity_analysis.json", "Connectivity statistics"),
             ("network_topology_analysis.png", "Network topology characteristics"),
             ("topology_analysis.json", "Topology analysis results"),
+            ("top_pagerank_subgraph.png", "Graph excerpt visualizations"),
+            ("community_subgraph.png", "Community subgraph visualization"),
+            ("top_10_pagerank_bar_chart.png", "Statistical visualizations"),
+            ("top_10_metrics_heatmap.png", "Centrality metrics heatmap"),
+            ("centrality_top10_with_names.json", "Centrality analysis results"),
+            ("network_output/top_pagerank_bar.png", "Centrality visualizations"),
+            ("network_output/centrality_heatmap.png", "Centrality heatmap"),
             ("network_output/exports/", "Interactive visualizations")
         ]
         
