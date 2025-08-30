@@ -247,18 +247,9 @@ This project was developed as part of network analysis coursework at Leuphana Un
 - Cultural diffusion theory in network analysis
 - Music information retrieval and network analysis
 
-## 📄 License
-
-This project is available for academic and research purposes. Please cite appropriately if used in academic work.
-
 ## 📧 Contact
 
-**Author**: Mohamed Elsafty  
+**Authors**: Mohamed Elsafty, Andra Dandu, Abdul Muqeet Sultanpuri
 **Institution**: Leuphana University  
 **Course**: Analyzing Networks (Semester 2)
 
-For questions or collaboration opportunities, please open an issue on GitHub.
-
----
-
-*This project demonstrates the application of network science principles to understand cultural influence patterns in the music industry through systematic analysis of cover song relationships.*
