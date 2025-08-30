@@ -29,7 +29,7 @@ df_top10 = pd.DataFrame({
     "InDegree": [G.in_degree(node) for node, _ in top_10],
     "OutDegree": [G.out_degree(node) for node, _ in top_10]
 })
-
+ 
 # --- 1. Bar Chart of Top PageRank Scores ---
 plt.figure(figsize=(10, 6))
 sns.barplot(data=df_top10, x="PageRank", y="Name", palette="viridis")

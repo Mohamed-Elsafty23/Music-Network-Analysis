@@ -2,9 +2,9 @@ import networkx as nx
 import pickle
 import matplotlib.pyplot as plt
 import json
-import pandas as pd
+import pandas as pd 
 from community import community_louvain
-import os
+import os  
 
 # Check if files exist
 network_file = 'network_output/music_cover_network.pickle'
